@@ -1,20 +1,20 @@
 #!/usr/bin/env node
-import input from './input.js';
+import input from "./input.js";
 
 const sum = (a, b) => a + b;
 
-const numbers = input.split('\n').concat('');
+const numbers = input.split("\n").concat("");
 
 let sums = [];
 let sequence = [];
 
 for (const number of numbers) {
-	if (number !== '') {
-		sequence.push(Number(number));
-	} else {
-		sums.push(sequence.reduce(sum));
-		sequence = [];
-	}
+  if (number !== "") {
+    sequence.push(Number(number));
+  } else {
+    sums.push(sequence.reduce(sum));
+    sequence = [];
+  }
 }
 
 console.log(Math.max(...sums));

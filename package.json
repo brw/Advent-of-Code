@@ -1,6 +1,5 @@
 {
-	"type": "module",
-	"dependencies": {
-		"benchmark": "^2.1.4"
-	}
+  "name": "adventofcode",
+  "packageManager": "yarn@3.3.0",
+  "private": true
 }
