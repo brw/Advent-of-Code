@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 
-const input = await readFile('./input.txt', { encoding: 'utf-8' });
+const input = readFileSync('./input.txt', 'utf-8');
 
 const sum = (a, b) => a + b;
 
