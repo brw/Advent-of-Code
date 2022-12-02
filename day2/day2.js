@@ -1,4 +1,7 @@
-import input from "./input.js";
+#!/usr/bin/env node
+import { readFile } from 'node:fs/promises';
+
+const input = await readFile('./input.txt', { encoding: 'utf8' });
 
 const outcomes = {
   AX: [4, 3],
@@ -12,9 +15,10 @@ const outcomes = {
   CZ: [6, 7],
 };
 
-const matches = input.replace(/ /g, "").split("\n");
+const matches = input.replaceAll(' ', '').split('\n');
 const scores = matches.reduce(
   (totals, match) => {
+    if (!match) return totals;
     totals[0] += outcomes[match][0];
     totals[1] += outcomes[match][1];
     return totals;

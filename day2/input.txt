@@ -1,4 +1,4 @@
-export default `B Y
+B Y
 A Z
 A Z
 B Y
@@ -2497,4 +2497,4 @@ C Y
 A Y
 A Z
 A X
-C Y`
+C Y
