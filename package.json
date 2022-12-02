@@ -1,6 +1,9 @@
 {
-  "name": "adventofcode",
-  "packageManager": "yarn@3.3.0",
-  "private": true,
-  "type": "module"
+	"name": "adventofcode",
+	"description": "My 2022 Advent of Code solutions",
+	"author": "Bas van den Wollenberg <hi@bas.sh>",
+	"repository": "https://github.com/brw/Advent-of-Code-2022",
+	"license": "MIT",
+	"private": true,
+	"type": "module"
 }
