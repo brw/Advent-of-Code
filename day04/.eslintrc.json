@@ -1,0 +1,6 @@
+{
+	"curly": [
+		"error",
+		"multi-or-nest"
+	]
+}
