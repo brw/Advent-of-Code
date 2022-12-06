@@ -1,6 +1,6 @@
-import { readFileSync } from 'fs';
+import getInput from '../get_input';
 
-const input = readFileSync(new URL('input.txt', import.meta.url), 'utf-8');
+const input = getInput(import.meta.url);
 const stream = input.trim();
 
 function findMarker(stream, distinct) {
