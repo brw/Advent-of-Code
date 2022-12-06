@@ -1,6 +1,6 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync } from 'fs';
 
-const input = readFileSync('./input.txt', 'utf-8');
+const input = readFileSync(new URL('input.txt', import.meta.url), 'utf-8');
 const stream = input.trim();
 
 function findMarker(stream, distinct) {
@@ -12,11 +12,11 @@ function findMarker(stream, distinct) {
   }
 }
 
-function part1(stream) {
+export function part1(stream) {
   return findMarker(stream, 4);
 }
 
-function part2(stream) {
+export function part2(stream) {
   return findMarker(stream, 14);
 }
 

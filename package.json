@@ -5,5 +5,14 @@
 	"repository": "https://github.com/brw/Advent-of-Code-2022",
 	"license": "MIT",
 	"private": true,
-	"type": "module"
+	"type": "module",
+	"packageManager": "yarn@3.3.0",
+	"scripts": {
+		"test": "NODE_OPTIONS=--experimental-vm-modules $npm_execpath jest",
+		"test:watch": "$npm_execpath test --watch"
+	},
+	"devDependencies": {
+		"jest": "^29.3.1",
+		"yarpm": "^1.2.0"
+	}
 }
