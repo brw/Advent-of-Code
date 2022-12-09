@@ -19,15 +19,13 @@ function simulateRope(motions, ropeLength) {
     .map((_) => [0, 0]);
   const head = knots[0];
   const visited = [[0, 0]];
-  const xD = { R: 1, L: -1, U: 0, D: 0 };
-  const yD = { U: 1, D: -1, R: 0, L: 0 };
-
+  const moves = { R: [1, 0], L: [-1, 0], U: [0, 1], D: [0, -1] };
   for (const [direction, steps] of motions) {
-    const headXd = xD[direction];
-    const headYd = yD[direction];
+    const moveX = moves[direction][0];
+    const moveY = moves[direction][1];
     for (let i = 0; i < steps; i++) {
-      head[0] += headXd;
-      head[1] += headYd;
+      head[0] += moveX;
+      head[1] += moveY;
       for (let j = 1; j < knots.length; j++) {
         const knot = knots[j];
         const prevKnot = knots[j - 1];
