@@ -13,35 +13,8 @@ function nextTo(x) {
   return x >= -1 && x <= 1;
 }
 
-export function part1(data) {
-  const motions = getMotions(data);
-  const head = [0, 0];
-  const tail = [0, 0];
-  const visited = [[0, 0]];
-  const xDelta = { R: 1, L: -1, U: 0, D: 0 };
-  const yDelta = { U: 1, D: -1, R: 0, L: 0 };
-
-  for (const [direction, steps] of motions) {
-    const headXd = xDelta[direction];
-    const headYd = yDelta[direction];
-    for (let i = 0; i < steps; i++) {
-      head[0] += headXd;
-      head[1] += headYd;
-      if (!(nextTo(tail[0] - head[0]) && nextTo(tail[1] - head[1]))) {
-        tail[0] += head[0] === tail[0] ? 0 : Math.sign(head[0] - tail[0]);
-        tail[1] += head[1] === tail[1] ? 0 : Math.sign(head[1] - tail[1]);
-        visited.push([...tail]);
-      }
-    }
-  }
-
-  const uniqueVisited = new Set(visited.map((pos) => pos.join())).size;
-  return uniqueVisited;
-}
-
-export function part2(data) {
-  const motions = getMotions(data);
-  const knots = Array(10)
+function simulateRope(motions, ropeLength) {
+  const knots = Array(ropeLength)
     .fill()
     .map((_) => [0, 0]);
   const head = knots[0];
@@ -65,12 +38,22 @@ export function part2(data) {
             knot[1] === prevKnot[1] ? 0 : Math.sign(prevKnot[1] - knot[1]);
         }
       }
-      visited.push([...knots[9]]);
+      visited.push([...knots.at(-1)]);
     }
   }
 
   const uniqueVisited = new Set(visited.map((pos) => pos.join())).size;
   return uniqueVisited;
+}
+
+export function part1(data) {
+  const motions = getMotions(data);
+  return simulateRope(motions, 2);
+}
+
+export function part2(data) {
+  const motions = getMotions(data);
+  return simulateRope(motions, 10);
 }
 
 console.log(part1(input), part2(input));
