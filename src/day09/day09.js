@@ -32,10 +32,8 @@ function simulateRope(motions, ropeLength) {
         const knot = knots[j];
         const prevKnot = knots[j - 1];
         if (!(nextTo(knot[0] - prevKnot[0]) && nextTo(knot[1] - prevKnot[1]))) {
-          knot[0] +=
-            knot[0] === prevKnot[0] ? 0 : Math.sign(prevKnot[0] - knot[0]);
-          knot[1] +=
-            knot[1] === prevKnot[1] ? 0 : Math.sign(prevKnot[1] - knot[1]);
+          knot[0] += Math.sign(prevKnot[0] - knot[0]);
+          knot[1] += Math.sign(prevKnot[1] - knot[1]);
         }
       }
       visited.push([...knots.at(-1)]);
