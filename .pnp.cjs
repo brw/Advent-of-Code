@@ -28,8 +28,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
-            ["jest", "virtual:85f87e6bc7e70cf1db495a8b5d098e8b8533d0cf23c18eafdd86574e56c6f6bf997c3508f7afa704b61cd98f737d27d2787799fb1bb961f2025241ddcb64b8c8#npm:29.3.1"],\
-            ["yarpm", "npm:1.2.0"]\
+            ["jest", "virtual:85f87e6bc7e70cf1db495a8b5d098e8b8533d0cf23c18eafdd86574e56c6f6bf997c3508f7afa704b61cd98f737d27d2787799fb1bb961f2025241ddcb64b8c8#npm:29.3.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -1370,8 +1369,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["adventofcode", "workspace:."],\
-            ["jest", "virtual:85f87e6bc7e70cf1db495a8b5d098e8b8533d0cf23c18eafdd86574e56c6f6bf997c3508f7afa704b61cd98f737d27d2787799fb1bb961f2025241ddcb64b8c8#npm:29.3.1"],\
-            ["yarpm", "npm:1.2.0"]\
+            ["jest", "virtual:85f87e6bc7e70cf1db495a8b5d098e8b8533d0cf23c18eafdd86574e56c6f6bf997c3508f7afa704b61cd98f737d27d2787799fb1bb961f2025241ddcb64b8c8#npm:29.3.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -1897,15 +1895,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/color-support-npm-1.1.3-3be5c53455-9b73568176.zip/node_modules/color-support/",\
           "packageDependencies": [\
             ["color-support", "npm:1.1.3"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["command-exists", [\
-        ["npm:1.2.9", {\
-          "packageLocation": "./.yarn/cache/command-exists-npm-1.2.9-cc51a1f78a-729ae3d88a.zip/node_modules/command-exists/",\
-          "packageDependencies": [\
-            ["command-exists", "npm:1.2.9"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4386,17 +4375,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/yargs-parser-npm-21.1.1-8fdc003314-ed2d96a616.zip/node_modules/yargs-parser/",\
           "packageDependencies": [\
             ["yargs-parser", "npm:21.1.1"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["yarpm", [\
-        ["npm:1.2.0", {\
-          "packageLocation": "./.yarn/cache/yarpm-npm-1.2.0-5565ea43b5-77d37cf5ef.zip/node_modules/yarpm/",\
-          "packageDependencies": [\
-            ["yarpm", "npm:1.2.0"],\
-            ["command-exists", "npm:1.2.9"],\
-            ["cross-spawn", "npm:7.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\

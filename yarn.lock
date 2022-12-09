@@ -893,7 +893,6 @@ __metadata:
   resolution: "adventofcode@workspace:."
   dependencies:
     jest: ^29.3.1
-    yarpm: ^1.2.0
   languageName: unknown
   linkType: soft
 
@@ -1318,13 +1317,6 @@ __metadata:
   bin:
     color-support: bin.js
   checksum: 9b7356817670b9a13a26ca5af1c21615463b500783b739b7634a0c2047c16cef4b2865d7576875c31c3cddf9dd621fa19285e628f20198b233a5cfdda6d0793b
-  languageName: node
-  linkType: hard
-
-"command-exists@npm:^1.2.9":
-  version: 1.2.9
-  resolution: "command-exists@npm:1.2.9"
-  checksum: 729ae3d88a2058c93c58840f30341b7f82688a573019535d198b57a4d8cb0135ced0ad7f52b591e5b28a90feb2c675080ce916e56254a0f7c15cb2395277cac3
   languageName: node
   linkType: hard
 
@@ -3462,20 +3454,6 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: 47da1b0d854fa16d45a3ded57b716b013b2179022352a5f7467409da5a04a1eef5b3b3d97a2dfc13e8bbe5f2ffc0afe3bc6a4a72f8254e60f5a4bd7947138643
-  languageName: node
-  linkType: hard
-
-"yarpm@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "yarpm@npm:1.2.0"
-  dependencies:
-    command-exists: ^1.2.9
-    cross-spawn: ^7.0.3
-  bin:
-    yarpm: bin/yarpm.js
-    yarpm-pnpm: bin/yarpm-pnpm.js
-    yarpm-yarn: bin/yarpm-yarn.js
-  checksum: 77d37cf5efa14bbe3b1568d295f198c51e890d9e6ae18029463a73eed29dba60785fd9286cc47b1b4237ec2f55bd66c60e6fe4cbe69a62f35bcb784c06df682e
   languageName: node
   linkType: hard
 
