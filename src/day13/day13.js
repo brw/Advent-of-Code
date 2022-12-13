@@ -53,28 +53,15 @@ export function part2(data) {
     .split('\n')
     .filter((e) => e !== '')
     .map((packets) => JSON.parse(packets));
-  packets.push([[2]], [[6]]);
+
+  const two = [[2]];
+  const six = [[6]];
+  packets.push(two, six);
   packets.sort(compare);
 
-  let i2, i6;
-
-  for (let i = 0; i < packets.length; i++) {
-    if (
-      packets[i].length === 1 &&
-      packets[i][0].length === 1 &&
-      packets[i][0][0] === 2
-    ) {
-      i2 = i + 1;
-    } else if (
-      packets[i].length === 1 &&
-      packets[i][0].length === 1 &&
-      packets[i][0][0] === 6
-    ) {
-      i6 = i + 1;
-      break;
-    }
-  }
-  return i2 * i6;
+  const idxTwo = packets.indexOf(two) + 1;
+  const idxSix = packets.indexOf(six) + 1;
+  return idxTwo * idxSix;
 }
 
 console.log(part1(input), part2(input));
