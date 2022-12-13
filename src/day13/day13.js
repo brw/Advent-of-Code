@@ -1,7 +1,5 @@
 import getInput from '../get_input.js';
 
-const input = getInput(import.meta.url);
-
 const isNumeric = (n) => !isNaN(parseInt(n)) && isFinite(n);
 
 const sum = (a, b) => a + b;
@@ -17,20 +15,14 @@ function compare(left, right) {
     left = [left];
   }
 
-  for (let i = 0; i < Math.max(left.length, right.length); i++) {
-    if (i === left.length) {
-      return -1;
-    } else if (i === right.length) {
-      return 1;
-    }
-
+  for (let i = 0; i < Math.min(left.length, right.length); i++) {
     const res = compare(left[i], right[i]);
     if (res !== 0) {
       return res;
     }
   }
 
-  return 0;
+  return Math.sign(left.length - right.length);
 }
 
 export function part1(data) {
@@ -66,4 +58,5 @@ export function part2(data) {
   return idxTwo * idxSix;
 }
 
+const input = getInput(import.meta.url);
 console.log(part1(input), part2(input));
