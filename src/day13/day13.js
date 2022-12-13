@@ -19,9 +19,9 @@ function compare(left, right) {
 
   if (Array.isArray(left) && Array.isArray(right)) {
     for (let i = 0; i < Math.max(left.length, right.length); i++) {
-      if (left[i] === undefined) {
+      if (i === left.length) {
         return -1;
-      } else if (right[i] === undefined) {
+      } else if (i === right.length) {
         return 1;
       }
 
@@ -38,7 +38,7 @@ export function part1(data) {
   const packets = data
     .trim()
     .split('\n\n')
-    .map((pairs) => pairs.split('\n').map((list) => JSON.parse(list)));
+    .map((pair) => pair.split('\n').map((packets) => JSON.parse(packets)));
   const correct = [];
 
   for (const [index, pairs] of packets.entries()) {
@@ -54,7 +54,7 @@ export function part2(data) {
   const packets = data
     .trim()
     .split('\n')
-    .filter((e) => e !== '')
+    .filter((line) => line !== '')
     .map((packets) => JSON.parse(packets));
 
   const two = [[2]];
