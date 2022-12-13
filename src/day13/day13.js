@@ -2,9 +2,9 @@ import getInput from '../get_input.js';
 
 const input = getInput(import.meta.url);
 
-function isNumeric(n) {
-  return !isNaN(parseInt(n)) && isFinite(n);
-}
+const isNumeric = (n) => !isNaN(parseInt(n)) && isFinite(n);
+
+const sum = (a, b) => a + b;
 
 function compare(left, right) {
   if (isNumeric(left) && isNumeric(right)) {
@@ -17,7 +17,7 @@ function compare(left, right) {
     left = [left];
   }
 
-  if (Array.isArray(left) && Array.isArray(right)) {
+  if (isArray(left) && isArray(right)) {
     for (let i = 0; i < Math.max(left.length, right.length); i++) {
       if (i === left.length) {
         return -1;
@@ -47,7 +47,7 @@ export function part1(data) {
     }
   }
 
-  return correct.reduce((a, b) => a + b);
+  return correct.reduce(sum);
 }
 
 export function part2(data) {
