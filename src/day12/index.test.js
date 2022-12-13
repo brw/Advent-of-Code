@@ -1,4 +1,4 @@
-import { part1, part2 } from './day12.js';
+import { part1, part2 } from './index.js';
 
 const input = `Sabqponm
 abcryxxl

@@ -1,4 +1,4 @@
-import { part1, part2 } from './day08.js';
+import { part1, part2 } from './index.js';
 
 const input = `30373
 25512

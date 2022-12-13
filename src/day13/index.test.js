@@ -1,4 +1,4 @@
-import { part1, part2 } from './day13.js';
+import { part1, part2 } from './index.js';
 
 const input = `[1,1,3,1,1]
 [1,1,5,1,1]

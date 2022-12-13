@@ -1,4 +1,4 @@
-import { part1, part2 } from './day11.js';
+import { part1, part2 } from './index.js';
 
 const input = `Monkey 0:
   Starting items: 79, 98

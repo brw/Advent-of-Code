@@ -1,4 +1,4 @@
-import { part1, part2 } from './day10.js';
+import { part1, part2 } from './index.js';
 
 const input = `addx 15
 addx -11
