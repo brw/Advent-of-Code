@@ -8,12 +8,14 @@ import getInput from '../get_input.js';
 // Correctly handles negative numbers: https://web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
 const mod = (n, m) => ((n % m) + m) % m;
 
-function getInstructions(data) {
-  return data.split('\n').map((line) => {
-    const [action, amount] = line.split(' ');
-    return { action, amount: Number(amount) };
-  });
-}
+const getInstructions = (data) =>
+  data
+    .trim()
+    .split('\n')
+    .map((line) => {
+      const [action, amount] = line.split(' ');
+      return { action, amount: Number(amount) };
+    });
 
 function simulateMovement(instructions, act) {
   const moves = [
@@ -28,23 +30,28 @@ function simulateMovement(instructions, act) {
   ];
   const pos = { x: 0, y: 0 };
   let direction = 0;
-
-  for (const { action, amount } of instructions) {
-    if (action === 'draai') {
-      direction = mod(direction + amount / 45, 8);
-    } else if (action === 'loop') {
-      for (let i = 0; i < amount; i++) {
+  const actions = {
+    draai: (degrees) => {
+      direction = mod(direction + degrees / 45, 8);
+    },
+    loop: (distance) => {
+      for (let i = 0; i < distance; i++) {
         const move = moves[direction];
         pos.x += move.x;
         pos.y += move.y;
         act?.(pos);
       }
-    } else if (action === 'spring') {
+    },
+    spring: (distance) => {
       const move = moves[direction];
-      pos.x += move.x * amount;
-      pos.y += move.y * amount;
+      pos.x += move.x * distance;
+      pos.y += move.y * distance;
       act?.(pos);
-    }
+    },
+  };
+
+  for (const { action, amount } of instructions) {
+    actions[action](amount);
   }
 
   return pos;
