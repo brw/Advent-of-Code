@@ -7,21 +7,24 @@ function isNumeric(n) {
 }
 
 function compare(left, right) {
-  if (left === undefined) {
-    return -1;
-  } else if (right === undefined) {
-    return 1;
-  }
   if (isNumeric(left) && isNumeric(right)) {
     return Math.sign(left - right);
   }
+
   if (Array.isArray(left) && isNumeric(right)) {
     right = [right];
   } else if (isNumeric(left) && Array.isArray(right)) {
     left = [left];
   }
+
   if (Array.isArray(left) && Array.isArray(right)) {
     for (let i = 0; i < Math.max(left.length, right.length); i++) {
+      if (left[i] === undefined) {
+        return -1;
+      } else if (right[i] === undefined) {
+        return 1;
+      }
+
       const res = compare(left[i], right[i]);
       if (res !== 0) {
         return res;
@@ -37,11 +40,13 @@ export function part1(data) {
     .split('\n\n')
     .map((pairs) => pairs.split('\n').map((list) => JSON.parse(list)));
   const correct = [];
+
   for (const [index, pairs] of packets.entries()) {
     if (compare(pairs[0], pairs[1]) === -1) {
       correct.push(index + 1);
     }
   }
+
   return correct.reduce((a, b) => a + b);
 }
 
