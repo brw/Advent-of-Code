@@ -1,18 +1,14 @@
 import getInput from '../get_input.js';
 
-const isNumeric = (n) => !isNaN(parseInt(n)) && isFinite(n);
-
-const sum = (a, b) => a + b;
-
 function compare(left, right) {
-  if (isNumeric(left) && isNumeric(right)) {
+  if (typeof left === 'number' && typeof right === 'number') {
     return Math.sign(left - right);
   }
 
-  if (Array.isArray(left) && isNumeric(right)) {
-    right = [right];
-  } else if (isNumeric(left) && Array.isArray(right)) {
+  if (!Array.isArray(left)) {
     left = [left];
+  } else if (!Array.isArray(right)) {
+    right = [right];
   }
 
   for (let i = 0; i < Math.min(left.length, right.length); i++) {
@@ -38,7 +34,7 @@ export function part1(data) {
     }
   }
 
-  return correct.reduce(sum);
+  return correct.reduce((a, b) => a + b);
 }
 
 export function part2(data) {
