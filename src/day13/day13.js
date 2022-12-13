@@ -29,8 +29,6 @@ function compare(left, right) {
     }
     return 0;
   }
-
-  return compare(left, right);
 }
 
 export function part1(data) {
