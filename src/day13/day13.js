@@ -29,7 +29,7 @@ export function part1(data) {
   const packets = data
     .trim()
     .split('\n\n')
-    .map((pair) => pair.split('\n').map((packets) => JSON.parse(packets)));
+    .map((pair) => pair.split('\n').map(JSON.parse));
   const correct = [];
 
   for (const [index, pairs] of packets.entries()) {
@@ -46,7 +46,7 @@ export function part2(data) {
     .trim()
     .split('\n')
     .filter((line) => line !== '')
-    .map((packets) => JSON.parse(packets));
+    .map(JSON.parse);
 
   const two = [[2]];
   const six = [[6]];
