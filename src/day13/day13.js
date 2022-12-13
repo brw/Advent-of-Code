@@ -17,21 +17,20 @@ function compare(left, right) {
     left = [left];
   }
 
-  if (isArray(left) && isArray(right)) {
-    for (let i = 0; i < Math.max(left.length, right.length); i++) {
-      if (i === left.length) {
-        return -1;
-      } else if (i === right.length) {
-        return 1;
-      }
-
-      const res = compare(left[i], right[i]);
-      if (res !== 0) {
-        return res;
-      }
+  for (let i = 0; i < Math.max(left.length, right.length); i++) {
+    if (i === left.length) {
+      return -1;
+    } else if (i === right.length) {
+      return 1;
     }
-    return 0;
+
+    const res = compare(left[i], right[i]);
+    if (res !== 0) {
+      return res;
+    }
   }
+
+  return 0;
 }
 
 export function part1(data) {
