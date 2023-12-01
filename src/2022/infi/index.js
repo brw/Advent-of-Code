@@ -3,7 +3,7 @@
  * https://aoc.infi.nl/2022
  */
 
-import getInput from '../get_input.js';
+import getInput from '../../get_input.js';
 
 // Correctly handles negative numbers: https://web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
 const mod = (n, m) => ((n % m) + m) % m;

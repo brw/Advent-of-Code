@@ -1,4 +1,4 @@
-import getInput from '../get_input.js';
+import getInput from '../../get_input.js';
 
 const SAND_POS = { x: 500, y: 0 };
 

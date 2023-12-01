@@ -1,4 +1,4 @@
-import getInput from '../get_input.js';
+import getInput from '../../get_input.js';
 
 export function part1(data) {}
 
