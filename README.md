@@ -1,9 +1,9 @@
 # Advent of Code
 
-My Advent of Code solutions in JavaScript (might try TypeScript as well later).
+My Advent of Code solutions in JavaScript.
 
-Test setup inspired by [Kyle Shevlin](https://github.com/kyleshevlin/advent-of-code-2022).
+Setup inspired by [Kyle Shevlin](https://github.com/kyleshevlin/advent-of-code-2022).
 
-## How
+## so how do i..
 
-For every new day export the `part1` and `part2` functions, import them into the corresponding test file, add input(s) and expected outputs, then run using `yarn test:watch <day>` and code away. :)
+For every new day copy the [template](https://github.com/brw/Advent-of-Code/tree/main/src/template) files, modify `index.test.js` with the example inputs and outputs and copy the actual input to `input.txt`. Run `bun test <dir>` or `yarn test:watch <dir>` and get coding :)

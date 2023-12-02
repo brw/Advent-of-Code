@@ -1,17 +1,17 @@
 {
-	"name": "adventofcode",
-	"description": "My 2022 Advent of Code solutions",
-	"author": "Bas van den Wollenberg <hi@bas.sh>",
-	"repository": "https://github.com/brw/Advent-of-Code-2022",
-	"license": "MIT",
-	"private": true,
-	"type": "module",
-	"packageManager": "yarn@3.3.0",
-	"scripts": {
-		"test": "NODE_OPTIONS=--experimental-vm-modules $npm_execpath jest",
-		"test:watch": "$npm_execpath test --watch"
-	},
-	"devDependencies": {
-		"jest": "^29.3.1"
-	}
+  "name": "adventofcode",
+  "description": "My Advent of Code solutions",
+  "author": "Bas van den Wollenberg <hi@bas.sh>",
+  "repository": "https://github.com/brw/Advent-of-Code",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "packageManager": "yarn@4.0.2",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules $npm_execpath jest",
+    "test:watch": "$npm_execpath test --watch"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
