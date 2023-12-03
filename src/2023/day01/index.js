@@ -36,3 +36,4 @@ export function part2(data) {
 
 const input = getInput(import.meta.url);
 console.log(part1(input), part2(input));
+// 55208 54578
