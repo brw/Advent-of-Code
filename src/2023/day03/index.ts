@@ -1,8 +1,13 @@
-import getInput from '../../get_input.js';
+import getInput from '../../get_input.ts';
 
-function findAdjacentNumbers(grid, row, rowIndex, symbolIndex) {
-  const numbers = [];
-  const rows = [row];
+function findAdjacentNumbers(
+  grid: string[],
+  row: string,
+  rowIndex: number,
+  symbolIndex: number,
+) {
+  const numbers: number[] = [];
+  const rows: string[] = [row];
   if (rowIndex > 0) rows.push(grid[rowIndex - 1]);
   if (rowIndex < grid.length - 1) rows.push(grid[rowIndex + 1]);
 
@@ -11,6 +16,8 @@ function findAdjacentNumbers(grid, row, rowIndex, symbolIndex) {
 
   for (const checkRow of rows) {
     for (const match of checkRow.matchAll(/\d+/g)) {
+      if (match.index === undefined) continue;
+
       const start = match.index;
       const end = start + match[0].length - 1;
 
@@ -26,7 +33,7 @@ function findAdjacentNumbers(grid, row, rowIndex, symbolIndex) {
   return numbers;
 }
 
-export function part1(data) {
+export function part1(data: string) {
   const grid = data.trim().split('\n');
   let sum = 0;
 
@@ -34,6 +41,8 @@ export function part1(data) {
     const matches = row.matchAll(/[^\d\.]+/g);
 
     for (const match of matches) {
+      if (match.index === undefined) continue;
+
       const numbers = findAdjacentNumbers(grid, row, rowIndex, match.index);
       sum += numbers.reduce((a, b) => a + b, 0);
     }
@@ -42,12 +51,14 @@ export function part1(data) {
   return sum;
 }
 
-export function part2(data) {
+export function part2(data: string) {
   const grid = data.trim().split('\n');
   let sum = 0;
 
   for (const [index, row] of grid.entries()) {
-    for (const match of row.matchAll(/\*/g, 'g')) {
+    for (const match of row.matchAll(/\*/g)) {
+      if (match.index === undefined) continue;
+
       const numbers = findAdjacentNumbers(grid, row, index, match.index);
       if (numbers.length === 2) {
         sum += numbers[0] * numbers[1];

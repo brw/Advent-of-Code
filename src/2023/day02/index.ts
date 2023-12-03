@@ -1,11 +1,11 @@
-import getInput from '../../get_input.js';
+import getInput from '../../get_input.ts';
 
-export function part1(data) {
-  const MAX = {
+export function part1(data: string) {
+  const MAX: { [key: string]: number } = {
     red: 12,
     green: 13,
     blue: 14,
-  };
+  } as const;
 
   const games = data.trim().split('\n');
 
@@ -13,6 +13,10 @@ export function part1(data) {
     const pulls = line.matchAll(/(?<n>\d+) (?<color>\w+)/g);
 
     for (const pull of pulls) {
+      if (!pull.groups) {
+        continue;
+      }
+
       const { n, color } = pull.groups;
 
       if (Number(n) > MAX[color]) {
@@ -20,18 +24,21 @@ export function part1(data) {
       }
     }
 
-    const id = Number(line.match(/\d+/)[0]);
-    return (sum += id);
+    const id = line.match(/\d+/);
+    if (!id) {
+      return sum;
+    }
+    return (sum += Number(id));
   }, 0);
 
   return possibleGamesSum;
 }
 
-export function part2(data) {
+export function part2(data: string) {
   const games = data.trim().split('\n');
 
   const powersSum = games.reduce((sum, line) => {
-    const min = {
+    const min: { [key: string]: number } = {
       red: 0,
       green: 0,
       blue: 0,
@@ -40,6 +47,10 @@ export function part2(data) {
     const pulls = line.matchAll(/(?<n>\d+) (?<color>\w+)/g);
 
     for (const pull of pulls) {
+      if (!pull.groups) {
+        continue;
+      }
+
       const { n, color } = pull.groups;
 
       min[color] = Math.max(min[color], Number(n));

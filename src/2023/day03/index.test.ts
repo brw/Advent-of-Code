@@ -1,3 +1,4 @@
+import { expect, test } from 'bun:test';
 import { part1, part2 } from './index.js';
 
 const input = `467..114..
