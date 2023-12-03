@@ -2,39 +2,15 @@ import getInput from '../../get_input.js';
 
 function findAdjacentNumbers(grid, row, rowIndex, symbolIndex) {
   const numbers = [];
-
-  for (const match of row.matchAll(/\d+/g)) {
-    const start = match.index;
-    const end = start + match[0].length - 1;
-
-    if (end === symbolIndex - 1 || start === symbolIndex + 1) {
-      numbers.push(Number(match[0]));
-    }
-  }
+  const rows = [row];
+  if (rowIndex > 0) rows.push(grid[rowIndex - 1]);
+  if (rowIndex < grid.length - 1) rows.push(grid[rowIndex + 1]);
 
   const startEdge = symbolIndex > 0 ? symbolIndex - 1 : symbolIndex;
   const endEdge = symbolIndex < row.length ? symbolIndex + 1 : symbolIndex;
 
-  if (rowIndex !== 0) {
-    const prevRow = grid[rowIndex - 1];
-
-    for (const match of prevRow.matchAll(/\d+/g)) {
-      const start = match.index;
-      const end = start + match[0].length - 1;
-
-      for (let i = startEdge; i <= endEdge; i++) {
-        if (i >= start && i <= end) {
-          numbers.push(Number(match[0]));
-          break;
-        }
-      }
-    }
-  }
-
-  if (rowIndex !== grid.length - 1) {
-    const nextRow = grid[rowIndex + 1];
-
-    for (const match of nextRow.matchAll(/\d+/g)) {
+  for (const checkRow of rows) {
+    for (const match of checkRow.matchAll(/\d+/g)) {
       const start = match.index;
       const end = start + match[0].length - 1;
 
