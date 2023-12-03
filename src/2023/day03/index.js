@@ -12,10 +12,11 @@ function findAdjacentNumbers(grid, row, rowIndex, symbolIndex) {
     }
   }
 
+  const startEdge = symbolIndex > 0 ? symbolIndex - 1 : symbolIndex;
+  const endEdge = symbolIndex < row.length ? symbolIndex + 1 : symbolIndex;
+
   if (rowIndex !== 0) {
     const prevRow = grid[rowIndex - 1];
-    const startEdge = symbolIndex > 0 ? symbolIndex - 1 : symbolIndex;
-    const endEdge = symbolIndex < row.length ? symbolIndex + 1 : symbolIndex;
 
     for (const match of prevRow.matchAll(/\d+/g)) {
       const start = match.index;
@@ -32,8 +33,6 @@ function findAdjacentNumbers(grid, row, rowIndex, symbolIndex) {
 
   if (rowIndex !== grid.length - 1) {
     const nextRow = grid[rowIndex + 1];
-    const startEdge = symbolIndex > 0 ? symbolIndex - 1 : symbolIndex;
-    const endEdge = symbolIndex < row.length ? symbolIndex + 1 : symbolIndex;
 
     for (const match of nextRow.matchAll(/\d+/g)) {
       const start = match.index;
