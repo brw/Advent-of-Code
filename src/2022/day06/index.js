@@ -1,4 +1,4 @@
-import getInput from '../../get_input';
+import { getInput } from '../../util.js';
 
 const input = getInput(import.meta.url);
 const stream = input.trim();

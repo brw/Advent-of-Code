@@ -1,4 +1,4 @@
-import getInput from '../../get_input.js';
+import { getInput } from '../../util.js';
 
 const SAND_POS = { x: 500, y: 0 };
 
@@ -49,7 +49,7 @@ function getRockGrid(data) {
       line.split(' -> ').map((rock) => {
         const [x, y] = rock.split(',');
         return { x: Number(x), y: Number(y) };
-      })
+      }),
     )
     .reduce((rocks, coords) => {
       for (let i = 1; i < coords.length; i++) {

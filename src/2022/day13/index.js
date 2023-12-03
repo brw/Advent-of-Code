@@ -1,4 +1,4 @@
-import getInput from '../../get_input.js';
+import { getInput } from '../../util.js';
 
 function compare(left, right) {
   if (typeof left === 'number' && typeof right === 'number') {

@@ -1,4 +1,4 @@
-import getInput from '../../get_input.js';
+import { getInput } from '../../util.js';
 
 const input = getInput(import.meta.url);
 
@@ -21,7 +21,7 @@ function parseHeightMap(data) {
         char = 'a';
       }
       return char.charCodeAt(0);
-    })
+    }),
   );
   return { map, start, end, possibleStart };
 }

@@ -1,4 +1,4 @@
-import getInput from '../../get_input.ts';
+import { getInput } from '../../util.ts';
 
 export function part1(data: string) {
   let sum = 0;
