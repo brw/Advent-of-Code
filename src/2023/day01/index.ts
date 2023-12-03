@@ -3,7 +3,7 @@ import getInput from '../../get_input.ts';
 export function part1(data: string) {
   let sum = 0;
 
-  for (const line of data.split('\n')) {
+  for (const line of data.trim().split('\n')) {
     const digits = line.replace(/\D+/g, '');
 
     if (digits) {
@@ -30,7 +30,7 @@ export function part2(data: string) {
   let sum = 0;
 
   const digitsRegex = new RegExp(`(${Object.keys(MAP).join('|')})`, 'g');
-  for (const line of data.split('\n')) {
+  for (const line of data.trim().split('\n')) {
     const digits = line
       .replace(digitsRegex, (key) => MAP[key])
       .replace(digitsRegex, (key) => MAP[key])
