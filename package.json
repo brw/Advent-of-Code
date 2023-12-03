@@ -6,14 +6,9 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "packageManager": "yarn@4.0.2",
-  "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules $npm_execpath jest",
-    "test:watch": "$npm_execpath test --watch"
-  },
   "devDependencies": {
-    "jest": "^29.7.0",
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "ts-jest": "^29.1.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
