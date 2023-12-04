@@ -2,27 +2,26 @@ import { getInput } from '../../util.ts';
 
 function findAdjacentNumbers(
   grid: string[],
-  row: string,
   rowIndex: number,
   symbolIndex: number,
 ) {
   const numbers: number[] = [];
-  const rows: string[] = [row];
-  if (rowIndex > 0) rows.push(grid[rowIndex - 1]);
-  if (rowIndex < grid.length - 1) rows.push(grid[rowIndex + 1]);
 
-  const startEdge = symbolIndex > 0 ? symbolIndex - 1 : symbolIndex;
-  const endEdge = symbolIndex < row.length ? symbolIndex + 1 : symbolIndex;
+  const edgeStart = symbolIndex - 1;
+  const edgeEnd = symbolIndex + 1;
 
-  for (const checkRow of rows) {
-    for (const match of checkRow.matchAll(/\d+/g)) {
+  for (const offset of [-1, 0, 1]) {
+    const row = grid[rowIndex + offset];
+    if (!row) continue;
+
+    for (const match of row.matchAll(/\d+/g)) {
       if (match.index === undefined) continue;
 
-      const start = match.index;
-      const end = start + match[0].length - 1;
+      const numStart = match.index;
+      const numEnd = numStart + match[0].length - 1;
 
-      for (let i = startEdge; i <= endEdge; i++) {
-        if (i >= start && i <= end) {
+      for (let i = edgeStart; i <= edgeEnd; i++) {
+        if (i >= numStart && i <= numEnd) {
           numbers.push(Number(match[0]));
           break;
         }
@@ -43,7 +42,7 @@ export function part1(data: string) {
     for (const match of matches) {
       if (match.index === undefined) continue;
 
-      const numbers = findAdjacentNumbers(grid, row, rowIndex, match.index);
+      const numbers = findAdjacentNumbers(grid, rowIndex, match.index);
       sum += numbers.reduce((a, b) => a + b, 0);
     }
   }
@@ -59,7 +58,7 @@ export function part2(data: string) {
     for (const match of row.matchAll(/\*/g)) {
       if (match.index === undefined) continue;
 
-      const numbers = findAdjacentNumbers(grid, row, index, match.index);
+      const numbers = findAdjacentNumbers(grid, index, match.index);
       if (numbers.length === 2) {
         sum += numbers[0] * numbers[1];
       }
