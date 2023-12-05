@@ -36,46 +36,46 @@ export function part2(data: string) {
   let lowestLocation = Infinity;
 
   for (const [min, max] of seedRanges) {
-    let next: [number, number][] = [[min, max]];
+    let nextRanges: [number, number][] = [[min, max]];
 
     for (const section of sections.slice(1)) {
       const map = section.trim().split('\n').slice(1);
-      let ranges: [number, number][] = [...next];
-      const done: [number, number][] = [];
+      let rangesToCheck: [number, number][] = [...nextRanges];
+      const changedRanges: [number, number][] = [];
 
       for (const line of map) {
         const [destination, source, range] = line.split(' ').map(Number);
+        const unchangedRanges: [number, number][] = [];
 
-        let newRanges: [number, number][] = [];
-        while (ranges.length) {
-          const [min, max] = ranges.pop()!;
+        while (rangesToCheck.length !== 0) {
+          const [min, max] = rangesToCheck.pop()!;
 
           const before = [min, Math.min(max, source)];
           const inter = [Math.max(min, source), Math.min(max, source + range)];
           const after = [Math.max(source + range, min), max];
 
           if (before[0] < before[1]) {
-            newRanges.push([before[0], before[1]]);
+            unchangedRanges.push([before[0], before[1]]);
           }
 
           if (inter[0] < inter[1]) {
-            done.push([
+            changedRanges.push([
               inter[0] - source + destination,
               inter[1] - source + destination,
             ]);
           }
 
           if (after[0] < after[1]) {
-            newRanges.push([after[0], after[1]]);
+            unchangedRanges.push([after[0], after[1]]);
           }
         }
-        ranges = newRanges;
+        rangesToCheck = unchangedRanges;
       }
-      next = [...done, ...ranges];
+      nextRanges = [...changedRanges, ...rangesToCheck];
     }
 
-    const currentLowestLocation = Math.min(...next.flat());
-    lowestLocation = Math.min(lowestLocation, currentLowestLocation);
+    const seedRangeLowestLocation = Math.min(...nextRanges.flat());
+    lowestLocation = Math.min(lowestLocation, seedRangeLowestLocation);
   }
 
   return lowestLocation;
