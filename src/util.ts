@@ -11,3 +11,7 @@ export function toLines(str: string) {
 export function sum(arr: number[]) {
   return arr.reduce((a, b) => a + b, 0);
 }
+
+export function logger(...args: any[]) {
+  return console.log(...args), args;
+}

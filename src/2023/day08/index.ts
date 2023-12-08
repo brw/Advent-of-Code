@@ -52,7 +52,3 @@ function traverse(
 
   return steps;
 }
-
-const input = await Bun.file(import.meta.dir + '/input.txt').text();
-console.log(part1(input), part2(input));
-// 16043 15726453850399
