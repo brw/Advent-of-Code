@@ -1,5 +1,19 @@
 import { getInput, toLines } from '../../util';
 
+function prepare(data: string) {
+  const lines = toLines(data);
+  const directions = lines[0].split('');
+  const map = lines.slice(2).reduce(
+    (map, line) => {
+      const [from, to] = line.split(' = ');
+      map[from] = to.match(/\w+/g)!;
+      return map;
+    },
+    {} as Record<string, string[]>,
+  );
+  return { directions, map };
+}
+
 function traverse(
   map: Record<string, string[]>,
   directions: string[],
@@ -21,32 +35,13 @@ function traverse(
 }
 
 export function part1(data: string) {
-  const lines = toLines(data);
-  const directions = lines[0].split('');
-  const map = lines.slice(2).reduce(
-    (map, line) => {
-      const [from, to] = line.split(' = ');
-      map[from] = to.match(/\w+/g)!;
-      return map;
-    },
-    {} as Record<string, string[]>,
-  );
-
+  const { directions, map } = prepare(data);
   const steps = traverse(map, directions, 'AAA', 'ZZZ');
   return steps;
 }
 
 export function part2(data: string) {
-  const lines = toLines(data);
-  const directions = lines[0].split('');
-  const map = lines.slice(2).reduce(
-    (map, line) => {
-      const [from, to] = line.split(' = ');
-      map[from] = to.match(/\w+/g)!;
-      return map;
-    },
-    {} as Record<string, string[]>,
-  );
+  const { directions, map } = prepare(data);
 
   const startPositions = Object.keys(map).filter((key) => key[2] === 'A');
   const allSteps: number[] = [];
