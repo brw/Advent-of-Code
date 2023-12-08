@@ -1,4 +1,4 @@
-import { getInput, toLines } from '../../util';
+import { getInput } from '../../util';
 
 export function part1(data: string) {
   const { directions, map } = prepare(data);
@@ -25,7 +25,7 @@ export function part2(data: string) {
 }
 
 function prepare(data: string) {
-  const lines = toLines(data);
+  const lines = data.trim().split('\n');
   const directions = lines[0].split('');
   const map = lines.slice(2).reduce(
     (map, line) => {
