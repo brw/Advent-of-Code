@@ -11,6 +11,7 @@ function prepare(data: string) {
     },
     {} as Record<string, string[]>,
   );
+
   return { directions, map };
 }
 
@@ -23,19 +24,19 @@ function traverse(
   let current = start;
   let steps = 0;
 
-  while (true) {
+  while (!current.match(new RegExp(end))) {
     const [left, right] = map[current];
     const direction = directions[steps % directions.length];
     current = direction === 'L' ? left : right;
     steps++;
-    if (current.match(new RegExp(end))) {
-      return steps;
-    }
   }
+
+  return steps;
 }
 
 export function part1(data: string) {
   const { directions, map } = prepare(data);
+
   const steps = traverse(map, directions, 'AAA', 'ZZZ');
   return steps;
 }
