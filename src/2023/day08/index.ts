@@ -51,18 +51,11 @@ export function part2(data: string) {
     allSteps.push(steps);
   }
 
-  const lcm = allSteps.reduce((a, b) => {
-    let [x, y] = [a, b];
-    while (x !== y) {
-      if (x < y) {
-        x += a;
-      } else {
-        y += b;
-      }
-    }
-    return x;
-  });
-  return lcm;
+  const gcd = (a: number, b: number): number => (b !== 0 ? gcd(b, a % b) : a);
+  const lcm = (a: number, b: number): number => (a * b) / gcd(a, b);
+
+  const steps = allSteps.reduce(lcm);
+  return steps;
 }
 
 const input = getInput(import.meta.url);
