@@ -5,12 +5,13 @@ const input = `32T3K 765
 T55J5 684
 KK677 28
 KTJJT 220
-QQQJA 483`;
+QQQJA 483
+JJJJJ 0`;
 
-test('part1', () => {
-  expect(part1(input)).toEqual(6440);
-});
-
-// test('part2', () => {
-//   expect(part2(input)).toEqual();
+// test('part1', () => {
+//   expect(part1(input)).toEqual(6440);
 // });
+
+test('part2', () => {
+  expect(part2(input)).toEqual(5905);
+});

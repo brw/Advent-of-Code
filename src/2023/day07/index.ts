@@ -14,6 +14,7 @@ const CARDS: Record<string, number> = {
   '4': 4,
   '3': 3,
   '2': 2,
+  '*': 1,
 };
 
 const HANDS: Record<string, number> = {
@@ -21,14 +22,16 @@ const HANDS: Record<string, number> = {
   'One Pair': 2,
   'Two Pairs': 3,
   'Three of a Kind': 4,
-  'Full House': 7,
-  'Four of a Kind': 8,
-  'Five of a Kind': 9,
+  'Full House': 5,
+  'Four of a Kind': 6,
+  'Five of a Kind': 7,
 };
 
-function getStrenght(cards: string) {
+// hardcoding baybeee
+// maybe I'll come back and make this more generic
+function getStrength(cards: string) {
   const values = cards.split('').map((card) => CARDS[card]);
-  const sorted = values.sort((a, b) => b - a);
+  const sorted = values.sort((a, b) => a - b);
   const isFiveOfAKind = sorted.every((card) => card === sorted[0]);
   if (isFiveOfAKind) return HANDS['Five of a Kind'];
   const isFourOfAKind =
@@ -66,18 +69,18 @@ export function part1(data: string) {
     return {
       bid: Number(bid),
       cards,
-      strenght: getStrenght(cards),
+      strength: getStrength(cards),
     };
   });
 
   players.sort((a, b) => {
-    if (a.strenght === b.strenght) {
+    if (a.strength === b.strength) {
       for (let i = 0; i < a.cards.length; i++) {
         if (CARDS[a.cards[i]] > CARDS[b.cards[i]]) return 1;
         if (CARDS[a.cards[i]] < CARDS[b.cards[i]]) return -1;
       }
     }
-    return a.strenght - b.strenght;
+    return a.strength - b.strength;
   });
 
   const totalWinnings = players.reduce((acc, player, i) => {
@@ -87,7 +90,44 @@ export function part1(data: string) {
   return totalWinnings;
 }
 
-export function part2(data: string) {}
+export function part2(data: string) {
+  const players = toLines(data).map((line) => {
+    let [cards, bid] = line.replaceAll('J', '*').split(' ');
+    const cardCount = cards.split('').reduce(
+      (acc, card) => {
+        if (card === '*') return acc;
+        acc[card] = acc[card] + 1 || 1;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
+    const mostCommon =
+      Object.entries(cardCount).sort((a, b) => b[1] - a[1])[0]?.[0] ?? '*';
+
+    return {
+      bid: Number(bid),
+      cards,
+      strength: getStrength(cards.replaceAll('*', mostCommon)),
+    };
+  });
+
+  players.sort((a, b) => {
+    if (a.strength === b.strength) {
+      for (let i = 0; i < a.cards.length; i++) {
+        if (CARDS[a.cards[i]] > CARDS[b.cards[i]]) return 1;
+        if (CARDS[a.cards[i]] < CARDS[b.cards[i]]) return -1;
+      }
+    }
+    return a.strength - b.strength;
+  });
+
+  const totalWinnings = players.reduce((acc, player, i) => {
+    return acc + player.bid * (i + 1);
+  }, 0);
+
+  return totalWinnings;
+}
 
 const input = getInput(import.meta.url);
 console.log(part1(input), part2(input));
+// 247823654 245461700
