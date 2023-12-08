@@ -1,5 +1,3 @@
-import { getInput } from '../../util';
-
 export function part1(data: string) {
   const { directions, map } = prepare(data);
 
@@ -58,6 +56,6 @@ function traverse(
   return steps;
 }
 
-const input = getInput(import.meta.url);
+const input = await Bun.file(import.meta.dir + '/input.txt').text();
 console.log(part1(input), part2(input));
 // 16043 15726453850399
