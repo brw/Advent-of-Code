@@ -25,14 +25,12 @@ export function part2(data: string) {
 function prepare(data: string) {
   const lines = data.trim().split('\n');
   const directions = lines[0].split('');
-  const map = lines.slice(2).reduce(
-    (map, line) => {
-      const [from, to] = line.split(' = ');
-      map[from] = to.match(/\w+/g)!;
-      return map;
-    },
-    {} as Record<string, string[]>,
-  );
+  const map: Record<string, string[]> = {};
+
+  for (const line of lines.slice(2)) {
+    const [from, to] = line.split(' = ');
+    map[from] = to.match(/\w+/g)!;
+  }
 
   return { directions, map };
 }
