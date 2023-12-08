@@ -11,7 +11,7 @@ export function part2(data: string) {
   const startPositions = Object.keys(map).filter((key) => key[2] === 'A');
   const allSteps: number[] = [];
   for (const start of startPositions) {
-    const steps = traverse(map, directions, start, /..Z/);
+    const steps = traverse(map, directions, start, /.{2}Z/);
     allSteps.push(steps);
   }
 
