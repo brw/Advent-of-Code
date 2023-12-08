@@ -24,7 +24,7 @@ export function part2(data: string) {
 
 function prepare(data: string) {
   const lines = data.trim().split('\n');
-  const directions = lines[0].split('');
+  const directions = lines[0];
   const map: Record<string, string[]> = {};
 
   for (const line of lines.slice(2)) {
@@ -37,7 +37,7 @@ function prepare(data: string) {
 
 function traverse(
   map: Record<string, string[]>,
-  directions: string[],
+  directions: string,
   start: string,
 ) {
   let current = start;
