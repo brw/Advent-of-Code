@@ -1,7 +1,7 @@
 export function part1(data: string) {
   const { directions, map } = prepare(data);
 
-  const steps = traverse(map, directions, 'AAA', /ZZZ/);
+  const steps = traverse(map, directions, 'AAA');
   return steps;
 }
 
@@ -11,7 +11,7 @@ export function part2(data: string) {
   const startPositions = Object.keys(map).filter((key) => key[2] === 'A');
   const allSteps: number[] = [];
   for (const start of startPositions) {
-    const steps = traverse(map, directions, start, /.{2}Z/);
+    const steps = traverse(map, directions, start);
     allSteps.push(steps);
   }
 
@@ -41,12 +41,11 @@ function traverse(
   map: Record<string, string[]>,
   directions: string[],
   start: string,
-  end: RegExp,
 ) {
   let current = start;
   let steps = 0;
 
-  while (!current.match(end)) {
+  while (current[2] !== 'Z') {
     const [left, right] = map[current];
     const direction = directions[steps % directions.length];
     current = direction === 'L' ? left : right;
