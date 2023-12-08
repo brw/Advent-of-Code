@@ -1,5 +1,29 @@
 import { getInput, toLines } from '../../util';
 
+export function part1(data: string) {
+  const { directions, map } = prepare(data);
+
+  const steps = traverse(map, directions, 'AAA', 'ZZZ');
+  return steps;
+}
+
+export function part2(data: string) {
+  const { directions, map } = prepare(data);
+
+  const startPositions = Object.keys(map).filter((key) => key[2] === 'A');
+  const allSteps: number[] = [];
+  for (const start of startPositions) {
+    const steps = traverse(map, directions, start, '..Z');
+    allSteps.push(steps);
+  }
+
+  const gcd = (a: number, b: number): number => (b !== 0 ? gcd(b, a % b) : a);
+  const lcm = (a: number, b: number): number => (a * b) / gcd(a, b);
+
+  const steps = allSteps.reduce(lcm);
+  return steps;
+}
+
 function prepare(data: string) {
   const lines = toLines(data);
   const directions = lines[0].split('');
@@ -31,30 +55,6 @@ function traverse(
     steps++;
   }
 
-  return steps;
-}
-
-export function part1(data: string) {
-  const { directions, map } = prepare(data);
-
-  const steps = traverse(map, directions, 'AAA', 'ZZZ');
-  return steps;
-}
-
-export function part2(data: string) {
-  const { directions, map } = prepare(data);
-
-  const startPositions = Object.keys(map).filter((key) => key[2] === 'A');
-  const allSteps: number[] = [];
-  for (const start of startPositions) {
-    const steps = traverse(map, directions, start, '..Z');
-    allSteps.push(steps);
-  }
-
-  const gcd = (a: number, b: number): number => (b !== 0 ? gcd(b, a % b) : a);
-  const lcm = (a: number, b: number): number => (a * b) / gcd(a, b);
-
-  const steps = allSteps.reduce(lcm);
   return steps;
 }
 
