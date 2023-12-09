@@ -2,22 +2,6 @@ import { afterAll, afterEach, beforeAll, expect, test } from 'bun:test';
 import { part1, part2 } from './index.js';
 import { AocClient } from 'advent-of-code-client';
 
-const inputPath = import.meta.dir + '/input.txt';
-let inputFile = Bun.file(inputPath);
-
-const [year, day] = import.meta.url.match(/(\d{4}).*day(\d+)/)!.slice(1);
-
-if (process.env.AOC_TOKEN === undefined) {
-  console.log('AOC_TOKEN not set');
-  process.exit(1);
-}
-
-const aoc = new AocClient({
-  year: Number(year),
-  day: Number(day),
-  token: process.env.AOC_TOKEN,
-});
-
 const input1 = `LLR
 
 AAA = (BBB, BBB)
@@ -43,6 +27,22 @@ test('part1', () => {
 test('part2', () => {
   // console.log = () => {};
   expect(part2(input2)).toEqual(6);
+});
+
+const inputPath = import.meta.dir + '/input.txt';
+let inputFile = Bun.file(inputPath);
+
+const [year, day] = import.meta.url.match(/(\d{4}).*day(\d+)/)!.slice(1);
+
+if (process.env.AOC_TOKEN === undefined) {
+  console.log('AOC_TOKEN not set');
+  process.exit(1);
+}
+
+const aoc = new AocClient({
+  year: Number(year),
+  day: Number(day),
+  token: process.env.AOC_TOKEN,
 });
 
 beforeAll(async () => {

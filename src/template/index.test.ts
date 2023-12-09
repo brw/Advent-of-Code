@@ -2,6 +2,18 @@ import { afterAll, afterEach, beforeAll, expect, test } from 'bun:test';
 import { part1, part2 } from './index.js';
 import { AocClient } from 'advent-of-code-client';
 
+const input = ``;
+
+test('part1', () => {
+  // console.log = () => {};
+  expect(part1(input)).toEqual();
+});
+
+test('part2', () => {
+  // console.log = () => {};
+  // expect(part2(input)).toEqual();
+});
+
 const inputPath = import.meta.dir + '/input.txt';
 let inputFile = Bun.file(inputPath);
 
@@ -19,18 +31,6 @@ const aoc = new AocClient({
 });
 
 const _log = console.log;
-
-const input = ``;
-
-test('part1', () => {
-  // console.log = () => {};
-  expect(part1(input)).toEqual();
-});
-
-test('part2', () => {
-  // console.log = () => {};
-  // expect(part2(input)).toEqual();
-});
 
 beforeAll(async () => {
   if (!(await inputFile.exists())) {
