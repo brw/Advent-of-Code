@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, expect, test } from 'bun:test';
-import { part1, part2 } from './index.js';
+import { part1, part2, settings } from './index.js';
 import { AocClient } from 'advent-of-code-client';
 
 const inputPath = import.meta.dir + '/input.txt';
@@ -11,13 +11,19 @@ const exampleInput = `0 3 6 9 12 15
 1 3 6 10 15 21
 10 13 16 21 30 45`;
 
-test.if(await inputFile.exists())('part1', () => {
-  // console.log = () => {};
+test.if((await inputFile.exists()) && settings.part1.example)('part1', () => {
+  if (!settings.part1.exampleLog) {
+    console.log = () => {};
+  }
+
   expect(part1(exampleInput)).toEqual(114);
 });
 
-test.if(await inputFile.exists())('part2', () => {
-  // console.log = () => {};
+test.if((await inputFile.exists()) && settings.part2.example)('part2', () => {
+  if (!settings.part2.exampleLog) {
+    console.log = () => {};
+  }
+
   expect(part2(exampleInput)).toEqual(2);
 });
 
@@ -53,21 +59,32 @@ afterAll(async () => {
 
   const input = await inputFile.text();
 
-  // console.log = () => {};
-  const part1Result = part1(input);
+  let part1Result: number | string | undefined;
+  let part2Result: number | string | undefined;
+
+  if (settings.part1) {
+    if (!settings.part1.log) {
+      console.log = () => {};
+    }
+    part1Result = part1(input)!;
+    console.log('Part 1:', part1Result);
+  }
   console.log = _log;
-  const part2Result = part2(input);
+  if (settings.part2) {
+    if (!settings.part2.log) {
+      console.log = () => {};
+    }
+    part2Result = part2(input)!;
+    console.log('Part 2:', part2Result);
+  }
 
-  console.log('Part 1:', part1Result); // 1921197370
-  console.log('Part 2:', part2Result); // 1124
-
-  const part = part2Result === undefined ? 1 : 2;
-  const result = part === 1 ? part1Result : part2Result;
+  const part = part2Result ? 2 : 1;
+  const result = part2Result ?? part1Result;
 
   Bun.spawn(['wl-copy'], { stdin: Buffer.from(String(result)) });
 
-  if (result !== undefined && result) {
-    // await submit(day, part, result);
+  if (result && settings[`part${part}`].submit) {
+    await submit(day, part, result);
   }
 });
 

@@ -1,3 +1,19 @@
+// prettier-ignore
+export const settings = { 
+  part1: { // 1921197370
+    example:    true,
+    exampleLog: true,
+    log:        true,
+    submit:     true,
+  },
+  part2: { // 1124
+    example:    true,
+    exampleLog: true,
+    log:        true,
+    submit:     true,
+  },
+}
+
 export function part1(data: string) {
   const lines = data.trim().split('\n');
   const next = [];
@@ -10,6 +26,7 @@ export function part1(data: string) {
       const prevLayer = layers[i + 1];
       layer.push(layer.at(-1)! + prevLayer.at(-1)!);
     }
+
     next.push(layers[0].at(-1)!);
   }
 
@@ -47,10 +64,13 @@ function createDifferenceLayer(line: string) {
       acc.push(difference);
       return acc;
     }, [] as number[]);
+
     layers.push(differences);
+
     if (differences.every((d) => d === 0)) {
       break;
     }
+
     values = differences;
   }
 
