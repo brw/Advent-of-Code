@@ -1,5 +1,22 @@
 import { afterAll, afterEach, beforeAll, expect, test } from 'bun:test';
 import { part1, part2 } from './index.js';
+import { AocClient } from 'advent-of-code-client';
+
+const inputPath = import.meta.dir + '/input.txt';
+let inputFile = Bun.file(inputPath);
+
+const [year, day] = import.meta.url.match(/(\d{4}).*day(\d+)/)!.slice(1);
+
+if (process.env.AOC_TOKEN === undefined) {
+  console.log('AOC_TOKEN not set');
+  process.exit(1);
+}
+
+const aoc = new AocClient({
+  year: Number(year),
+  day: Number(day),
+  token: process.env.AOC_TOKEN,
+});
 
 const input1 = `LLR
 
@@ -28,19 +45,9 @@ test('part2', () => {
   expect(part2(input2)).toEqual(6);
 });
 
-const inputPath = import.meta.dir + '/input.txt';
-let inputFile = Bun.file(inputPath);
-
-const day = import.meta.url.match(/day(\d+)/)![1];
-
 beforeAll(async () => {
   if (!(await inputFile.exists())) {
-    Bun.spawnSync(['aoc', 'download', '-I', '-d', day, '-i', inputPath], {
-      stdout: 'inherit',
-      stderr: 'inherit',
-    });
-
-    inputFile = Bun.file(inputPath);
+    await downloadInput();
   }
 });
 
@@ -61,15 +68,28 @@ afterAll(async () => {
   if (part1Result !== undefined) console.log('Part 1:', part1Result); // 16043
   if (part2Result !== undefined) console.log('Part 2:', part2Result); // 15726453850399
 
-  const part = part2Result === undefined ? '1' : '2';
-  const result = part === '1' ? part1Result : part2Result;
+  const part = part2Result === undefined ? 1 : 2;
+  const result = part === 1 ? part1Result : part2Result;
   Bun.spawn(['wl-copy'], { stdin: Buffer.from(String(result)) });
-  // submit(day, part, result);
+  if (result) {
+    // await submit(day, part, result);
+  }
 });
 
-function submit(day: string, part: string, result: number | string) {
-  Bun.spawn(['aoc', 'submit', '-d', day, part, String(result)], {
-    stdout: 'inherit',
-    stderr: 'inherit',
-  });
+async function downloadInput() {
+  const input = (await aoc.getInput()) as string;
+  await Bun.write(inputPath, input);
+}
+
+async function submit(day: string, part: number, result: number | string) {
+  try {
+    const response = await aoc.submit(part, result);
+    console.log(response);
+  } catch (error) {
+    if (!(error instanceof Error)) {
+      console.log(error);
+      return;
+    }
+    console.log(error.message);
+  }
 }
