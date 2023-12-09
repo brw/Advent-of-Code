@@ -2,20 +2,20 @@ import { afterAll, afterEach, beforeAll, expect, test } from 'bun:test';
 import { part1, part2 } from './index.js';
 import { AocClient } from 'advent-of-code-client';
 
-const input = ``;
-
-test('part1', () => {
-  // console.log = () => {};
-  expect(part1(input)).toEqual();
-});
-
-test('part2', () => {
-  // console.log = () => {};
-  // expect(part2(input)).toEqual();
-});
-
 const inputPath = import.meta.dir + '/input.txt';
 let inputFile = Bun.file(inputPath);
+
+const exampleInput = ``;
+
+test.if(await inputFile.exists())('part1', () => {
+  // console.log = () => {};
+  expect(part1(exampleInput)).toEqual();
+});
+
+test.if(await inputFile.exists())('part2', () => {
+  // console.log = () => {};
+  // expect(part2(exampleInput)).toEqual();
+});
 
 const [year, day] = import.meta.url.match(/(\d{4}).*day(\d+)/)!.slice(1);
 
@@ -43,6 +43,8 @@ afterEach(() => {
 });
 
 afterAll(async () => {
+  if (!(await inputFile.exists())) return;
+
   const input = await inputFile.text();
 
   // console.log = () => {};
@@ -62,8 +64,17 @@ afterAll(async () => {
 });
 
 async function downloadInput() {
-  const input = (await aoc.getInput()) as string;
-  await Bun.write(inputPath, input);
+  try {
+    const input = (await aoc.getInput()) as string;
+    await Bun.write(inputPath, input);
+    inputFile = Bun.file(inputPath);
+  } catch (error) {
+    if (!(error instanceof Error)) {
+      console.log(error);
+      return;
+    }
+    console.log(error.message);
+  }
 }
 
 async function submit(day: string, part: number, result: number | string) {
