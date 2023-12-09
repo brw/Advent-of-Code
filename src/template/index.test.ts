@@ -5,6 +5,8 @@ import { AocClient } from 'advent-of-code-client';
 const inputPath = import.meta.dir + '/input.txt';
 let inputFile = Bun.file(inputPath);
 
+const _log = console.log;
+
 const exampleInput = ``;
 
 test.if(await inputFile.exists())('part1', () => {
@@ -15,6 +17,10 @@ test.if(await inputFile.exists())('part1', () => {
 test.if(await inputFile.exists())('part2', () => {
   // console.log = () => {};
   // expect(part2(exampleInput)).toEqual();
+});
+
+afterEach(() => {
+  if (console.log !== _log) console.log = _log;
 });
 
 //
@@ -34,16 +40,10 @@ const aoc = new AocClient({
   token: process.env.AOC_TOKEN,
 });
 
-const _log = console.log;
-
 beforeAll(async () => {
   if (!(await inputFile.exists())) {
     await downloadInput();
   }
-});
-
-afterEach(() => {
-  if (console.log !== _log) console.log = _log;
 });
 
 afterAll(async () => {
