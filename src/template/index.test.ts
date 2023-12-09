@@ -17,6 +17,10 @@ test.if(await inputFile.exists())('part2', () => {
   // expect(part2(exampleInput)).toEqual();
 });
 
+//
+// Everything below is related to downloading the input and submitting the result
+//
+
 const [year, day] = import.meta.url.match(/(\d{4}).*day(\d+)/)!.slice(1);
 
 if (process.env.AOC_TOKEN === undefined) {
@@ -57,7 +61,9 @@ afterAll(async () => {
 
   const part = part2Result === undefined ? 1 : 2;
   const result = part === 1 ? part1Result : part2Result;
+
   Bun.spawn(['wl-copy'], { stdin: Buffer.from(String(result)) });
+
   if (result !== undefined && result) {
     // await submit(day, part, result);
   }
