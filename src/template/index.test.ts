@@ -1,6 +1,24 @@
 import { afterAll, afterEach, beforeAll, expect, test } from 'bun:test';
-import { part1, part2, settings } from './index.js';
+import { part1, part2 } from './index.js';
 import { AocClient } from 'advent-of-code-client';
+
+// prettier-ignore
+export const settings = { 
+  part1: {
+    example:    true,
+    exampleLog: true,
+    real:       false, // [part 1 answer]
+    log:        false,
+    submit:     false,
+  },
+  part2: {
+    example:    true,
+    exampleLog: true,
+    real:       false, // [part 2 answer]
+    log:        false,
+    submit:     false,
+  },
+}
 
 const inputPath = import.meta.dir + '/input.txt';
 let inputFile = Bun.file(inputPath);
@@ -60,18 +78,24 @@ afterAll(async () => {
   let part1Result: number | string | undefined;
   let part2Result: number | string | undefined;
 
-  if (settings.part1) {
-    if (!settings.part1.log) {
+  if (settings.part1.real) {
+    if (settings.part1.log) {
+      console.log = _log;
+    } else {
       console.log = () => {};
     }
+
     part1Result = part1(input)!;
     console.log('Part 1:', part1Result);
   }
-  console.log = _log;
-  if (settings.part2) {
-    if (!settings.part2.log) {
+
+  if (settings.part2.real) {
+    if (settings.part2.log) {
+      console.log = _log;
+    } else {
       console.log = () => {};
     }
+
     part2Result = part2(input)!;
     console.log('Part 2:', part2Result);
   }

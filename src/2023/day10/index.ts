@@ -1,22 +1,4 @@
 // prettier-ignore
-export const settings = { 
-  part1: { // 6757
-    example:    true,
-    exampleLog: true,
-    real:       true,
-    log:        true,
-    submit:     true,
-  },
-  part2: { // 523
-    example:    true,
-    exampleLog: true,
-    real:       true,
-    log:        true,
-    submit:     true,
-  },
-}
-
-// prettier-ignore
 const PIPES: Record<string, number[][]> = {
   '|': [[0, -1], [0, 1]],
   '-': [[-1, 0], [1, 0]],
