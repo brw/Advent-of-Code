@@ -7,16 +7,16 @@ export const settings = {
   part1: {
     example:    false,
     exampleLog: false,
-    real:       false, // [part 1 answer]
+    real:       false, // 10228230
     log:        false,
     submit:     false,
   },
   part2: {
     example:    true,
     exampleLog: true,
-    real:       false, // [part 2 answer]
-    log:        false,
-    submit:     false,
+    real:       true, // 447073334102
+    log:        true,
+    submit:     true,
   },
 }
 
@@ -49,7 +49,8 @@ test.if((await inputFile.exists()) && settings.part2.example)('part2', () => {
     console.log = () => {};
   }
 
-  expect(part2(exampleInput)).toEqual(8410);
+  expect(part2(exampleInput, 10)).toEqual(1030);
+  expect(part2(exampleInput, 100)).toEqual(8410);
 });
 
 afterEach(() => {
