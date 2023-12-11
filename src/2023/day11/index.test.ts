@@ -5,10 +5,10 @@ import { AocClient } from 'advent-of-code-client';
 // prettier-ignore
 export const settings = { 
   part1: {
-    example:    false,
-    exampleLog: false,
-    real:       false, // 10228230
-    log:        false,
+    example:    true,
+    exampleLog: true,
+    real:       true, // 10228230
+    log:        true,
     submit:     false,
   },
   part2: {
@@ -16,7 +16,7 @@ export const settings = {
     exampleLog: true,
     real:       true, // 447073334102
     log:        true,
-    submit:     true,
+    submit:     false,
   },
 }
 
