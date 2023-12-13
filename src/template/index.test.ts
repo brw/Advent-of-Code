@@ -27,12 +27,18 @@ const _log = console.log;
 
 const exampleInput = ``;
 
+const examplePass = {
+  part1: false,
+  part2: false,
+};
+
 test.if((await inputFile.exists()) && settings.part1.example)('part1', () => {
   if (!settings.part1.exampleLog) {
     console.log = () => {};
   }
 
   expect(part1(exampleInput)).toEqual();
+  examplePass.part1 = true;
 });
 
 test.if((await inputFile.exists()) && settings.part2.example)('part2', () => {
@@ -41,6 +47,7 @@ test.if((await inputFile.exists()) && settings.part2.example)('part2', () => {
   }
 
   expect(part2(exampleInput)).toEqual();
+  examplePass.part2 = true;
 });
 
 afterEach(() => {
@@ -105,7 +112,7 @@ afterAll(async () => {
 
   Bun.spawn(['wl-copy'], { stdin: Buffer.from(String(result)) });
 
-  if (result && settings[`part${part}`].submit) {
+  if (examplePass[`part${part}`] && result && settings[`part${part}`].submit) {
     await submit(day, part, result);
   }
 });
