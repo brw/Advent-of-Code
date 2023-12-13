@@ -9,14 +9,14 @@ export const settings = {
     exampleLog: true,
     real:       true, // 6757
     log:        true,
-    submit:     true,
+    submit:     false,
   },
   part2: {
     example:    true,
     exampleLog: true,
     real:       true, // 523
-    log:        true,
-    submit:     true,
+    log:        false,
+    submit:     false,
   },
 }
 

@@ -59,26 +59,26 @@ function traverseLoop(grid: string[]) {
 }
 
 function determineStartCharacter(grid: string[], x: number, y: number) {
-  const above = grid[y - 1][x];
-  const below = grid[y + 1][x];
-  const left = grid[y][x - 1];
-  const right = grid[y][x + 1];
+  const above = grid[y - 1]?.[x];
+  const below = grid[y + 1]?.[x];
+  const left = grid[y]?.[x - 1];
+  const right = grid[y]?.[x + 1];
 
   let possible = Object.keys(PIPES).slice(0, -1);
 
-  if (['7', '|', 'F'].includes(above)) {
+  if (['7', '|', 'F'].includes(above) || !below) {
     possible = possible.filter((p) => !['7', '-', 'F'].includes(p));
   }
 
-  if (['L', '|', 'J'].includes(below)) {
+  if (['L', '|', 'J'].includes(below) || !above) {
     possible = possible.filter((p) => !['L', '-', 'J'].includes(p));
   }
 
-  if (['L', '-', 'F'].includes(left)) {
+  if (['L', '-', 'F'].includes(left) || !right) {
     possible = possible.filter((p) => !['L', '|', 'F'].includes(p));
   }
 
-  if (['J', '-', '7'].includes(right)) {
+  if (['J', '-', '7'].includes(right) || !left) {
     possible = possible.filter((p) => !['J', '|', '7'].includes(p));
   }
 
@@ -95,35 +95,33 @@ export function part1(data: string) {
 export function part2(data: string) {
   const grid = data.trim().split('\n');
   const loop = traverseLoop(grid);
-  const inside = new Set<string>();
 
-  for (let y = 1; y < grid.length - 1; y++) {
+  let inside = false;
+  // const insideTiles = new Set<string>();
+  let totalInside = 0;
+
+  for (let y = 0; y < grid.length - 1; y++) {
     const row = grid[y];
-    for (let x = 1; x < row.length - 1; x++) {
-      if (!loop.has(`${x},${y}`)) {
-        let walls = 0;
+    for (let x = 0; x < row.length - 1; x++) {
+      let char = grid[y][x];
 
-        for (let i = x - 1; i >= 0; i--) {
-          let char = grid[y][i];
+      if (char === 'S') {
+        char = determineStartCharacter(grid, x, y);
+      }
 
-          if (char === 'S') {
-            char = determineStartCharacter(grid, i, y);
-          }
-
-          if (loop.has(`${i},${y}`) && ['|', 'J', 'L'].includes(char)) {
-            walls++;
-          }
-        }
-
-        if (walls > 0 && walls % 2 === 1) {
-          inside.add(`${x},${y}`);
-        }
+      if (loop.has(`${x},${y}`) && ['|', 'J', 'L'].includes(char)) {
+        inside = !inside;
+      } else if (!loop.has(`${x},${y}`) && inside) {
+        totalInside++;
+        // insideTiles.add(`${x},${y}`);
       }
     }
+
+    inside = false;
   }
 
-  // printGrid(grid, inside);
-  return inside.size;
+  // printGrid(grid, insideTiles);
+  return totalInside;
 }
 
 function printGrid(grid: string[], fill: Set<string>) {
@@ -143,9 +141,7 @@ function printGrid(grid: string[], fill: Set<string>) {
     const newRow = [];
     for (let x = 0; x < row.length; x++) {
       const char = grid[y][x];
-      newRow.push(
-        fill.has(`${x},${y}`) ? '#' : PIPE_CHARACTERS[char] ?? char,
-      );
+      newRow.push(fill.has(`${x},${y}`) ? '#' : PIPE_CHARACTERS[char] ?? char);
     }
     output.push(newRow.join(''));
   }
