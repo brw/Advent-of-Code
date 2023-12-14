@@ -12,8 +12,8 @@ export const settings = {
     submit:     false,
   },
   part2: {
-    example:    true,
-    exampleLog: true,
+    example:    false,
+    exampleLog: false,
     real:       false, // [part 2 answer]
     log:        false,
     submit:     false,
@@ -110,10 +110,9 @@ afterAll(async () => {
   const part = part2Result ? 2 : 1;
   const result = part2Result ?? part1Result;
 
-  Bun.spawn(['wl-copy'], { stdin: Buffer.from(String(result)) });
-
   if (examplePass[`part${part}`] && result && settings[`part${part}`].submit) {
-    await submit(day, part, result);
+    Bun.spawn(['wl-copy'], { stdin: Buffer.from(String(result)) });
+    await submit(part, result);
   }
 });
 
@@ -131,7 +130,7 @@ async function downloadInput() {
   }
 }
 
-async function submit(day: string, part: number, result: number | string) {
+async function submit(part: number, result: number | string) {
   try {
     const response = await aoc.submit(part, result);
     console.log(response);
