@@ -25,12 +25,12 @@ let inputFile = Bun.file(inputPath);
 
 const _log = console.log;
 
-const exampleInput = ``;
-
 const examplePass = {
   part1: false,
   part2: false,
 };
+
+const exampleInput = ``;
 
 test.if((await inputFile.exists()) && settings.part1.example)('part1', () => {
   if (!settings.part1.exampleLog) {
@@ -39,6 +39,8 @@ test.if((await inputFile.exists()) && settings.part1.example)('part1', () => {
 
   expect(part1(exampleInput)).toEqual();
   examplePass.part1 = true;
+
+  console.log = _log;
 });
 
 test.if((await inputFile.exists()) && settings.part2.example)('part2', () => {
@@ -48,10 +50,8 @@ test.if((await inputFile.exists()) && settings.part2.example)('part2', () => {
 
   expect(part2(exampleInput)).toEqual();
   examplePass.part2 = true;
-});
 
-afterEach(() => {
-  if (console.log !== _log) console.log = _log;
+  console.log = _log;
 });
 
 //
@@ -86,25 +86,25 @@ afterAll(async () => {
   let part2Result: number | string | undefined;
 
   if (settings.part1.real) {
-    if (settings.part1.log) {
-      console.log = _log;
-    } else {
+    if (!settings.part1.log) {
       console.log = () => {};
     }
 
     part1Result = part1(input)!;
     console.log('Part 1:', part1Result);
+
+    console.log = _log;
   }
 
   if (settings.part2.real) {
-    if (settings.part2.log) {
-      console.log = _log;
-    } else {
+    if (!settings.part2.log) {
       console.log = () => {};
     }
 
     part2Result = part2(input)!;
     console.log('Part 2:', part2Result);
+
+    console.log = _log;
   }
 
   const part = part2Result ? 2 : 1;
@@ -112,6 +112,7 @@ afterAll(async () => {
 
   if (examplePass[`part${part}`] && result && settings[`part${part}`].submit) {
     Bun.spawn(['wl-copy'], { stdin: Buffer.from(String(result)) });
+
     await submit(part, result);
   }
 });
@@ -119,14 +120,17 @@ afterAll(async () => {
 async function downloadInput() {
   try {
     const input = (await aoc.getInput()) as string;
+
     await Bun.write(inputPath, input);
+
     inputFile = Bun.file(inputPath);
   } catch (error) {
     if (!(error instanceof Error)) {
-      console.log(error);
+      console.error(error);
       return;
     }
-    console.log(error.message);
+
+    console.error(error.message);
   }
 }
 
@@ -136,9 +140,10 @@ async function submit(part: number, result: number | string) {
     console.log(response);
   } catch (error) {
     if (!(error instanceof Error)) {
-      console.log(error);
+      console.error(error);
       return;
     }
-    console.log(error.message);
+
+    console.error(error.message);
   }
 }
